@@ -1,8 +1,8 @@
 [submodule "reveal.js"]
-	path = reveal.js
+	path = src/reveal.js
 	url = https://github.com/hakimel/reveal.js
 	branch = master
 [submodule "qrcodejs"]
-	path = qrcodejs
+	path = src/qrcodejs
 	url = https://github.com/davidshimjs/qrcodejs
 	branch = master
