@@ -1,9 +1,9 @@
 FROM ubuntu:14.04
 
-MAINTAINER Peter Parente &lt;parente@cs.unc.edu&gt;
+MAINTAINER Peter Parente <parente@cs.unc.edu>
 
-RUN echo &quot;deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe&quot; &gt; /etc/apt/sources.list
-RUN echo &quot;deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-updates main universe&quot; &gt;&gt; /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-updates main universe" >> /etc/apt/sources.list
 RUN apt-get update
 
 RUN apt-get -y -q install wget
@@ -20,13 +20,15 @@ WORKDIR /revealjs
 
 RUN npm install -g grunt-cli
 RUN npm install
-RUN sed -i Gruntfile.js -e &#39;s/port: port,/port: port, hostname: &quot;&quot;,/&#39;
-ADD index.html /revealjs/
-ADD custom.css /revealjs/css/
-ADD title.js /revealjs/plugin/
-ONBUILD ADD slides.md /revealjs/md/
+RUN sed -i Gruntfile.js -e 's/port: port,/port: port, hostname: "",/'
+ADD . /revealjs/
+ONBUILD ADD . /revealjs/
+#ADD custom.css /revealjs/css/
+#ADD title.js /revealjs/plugin/
+#CMD rm -rf /revealjs/markdown
+#ONBUILD ADD markdown /revealjs/markdown
 
 EXPOSE 8000
-VOLUME [&quot;/revealjs/md/&quot;]
-CMD [&quot;grunt&quot;, &quot;serve&quot;]
+VOLUME ["/revealjs/markdown/"]
+CMD ["grunt", "serve"]
 
